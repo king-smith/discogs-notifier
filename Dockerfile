@@ -17,18 +17,20 @@ RUN go mod download
 COPY . ./
 
 # Build the binary.
-RUN go build -mod=readonly -v -o notifier main/main.go
+RUN go build -mod=readonly -v -o notifier cmd/main.go
 
 # Use the official Debian slim image for a lean production container.
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM debian:buster-slim
 
+WORKDIR /app
+
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/notifier /app/notifier
+COPY --from=builder /app/notifier ./notifier
 
 # Copy the example .env file to utilise some default values 
-COPY --from=builder /app/notifier/.env.example /app/notifier/.env
+COPY --from=builder /app/.env.example ./.env
 
 # Run the web service on container startup.
-CMD ["/app/notifier"]
+CMD ["./notifier"]
