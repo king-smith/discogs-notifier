@@ -22,10 +22,11 @@ steps:
     '--set-env-vars', '"SMTP_PASSWORD=$$SMTP_PASSWORD"',
     '--set-env-vars', '"VERBOSE=true"'
     ]
-    images:
-    - gcr.io/$PROJECT_ID/$REPO_NAME
     secretEnv: ['DISCOGS_TOKEN', 'SMTP_USERNAME', 'SMTP_PASSWORD']
 
+images:
+    - gcr.io/$PROJECT_ID/$REPO_NAME    
+    
 availableSecrets:
     secretManager:
         - versionName: projects/221674413825/secrets/DISCOGS_TOKEN/versions/1
