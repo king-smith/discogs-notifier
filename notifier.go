@@ -203,10 +203,10 @@ type Notifier struct {
 // RunNotifier is the main logic loop for the program.
 //
 // It first finds all the lists of the user that they want notifications for
-// 	For each list it retrieves the items in that list
-//		For each list item it retrieves its marketplace stats
-//          	If this item satisfies our notify conditions, notify user
-//          	Store these marketplace stats to compare with our next loop
+// 		For each list it retrieves the items in that list
+//			For each list item it retrieves its marketplace stats
+//          If this item satisfies our notify conditions, notify user
+//          Store these marketplace stats to compare with our next loop
 func RunNotifier() error {
 
 	userListsURL := fmt.Sprintf("https://api.discogs.com/users/%s/lists", os.Getenv("DISCOGS_USERNAME"))
@@ -221,6 +221,8 @@ func RunNotifier() error {
 		}
 
 		for _, list := range userLists {
+			log.Debugf("Fetching list '%s'", list.Name)
+
 			// Get the items found in each list
 			items, err := GetListItems(list.ResourceURL)
 			if err != nil {
