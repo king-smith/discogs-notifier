@@ -14,10 +14,10 @@ steps:
     '--image', 'gcr.io/$PROJECT_ID/$REPO_NAME', 
     '--region', 'us-central1', 
     '--platform', 'managed',
-    '--set-env-vars', '"DISCOGS_USERNAME=miwwen"',
-    '--set-env-vars', '"USER_EMAIL=mirren@live.com.au"',
+    '--set-env-vars', '"DISCOGS_USERNAME=$$DISCOGS_USERNAME"',
+    '--set-env-vars', '"USER_EMAIL=$$USER_EMAIL"',
     '--set-env-vars', '"DISCOGS_TOKEN=$$DISCOGS_TOKEN"',
-    '--set-env-vars', '"SMTP_ADDRESS=smtp.gmail.com"',
+    '--set-env-vars', '"SMTP_ADDRESS=$$SMTP_ADDRESS"',
     '--set-env-vars', '"SMTP_USERNAME=$$SMTP_USERNAME"',
     '--set-env-vars', '"SMTP_PASSWORD=$$SMTP_PASSWORD"',
     '--set-env-vars', '"VERBOSE=true"'
