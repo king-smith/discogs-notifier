@@ -14,10 +14,10 @@ steps:
     '--image', 'gcr.io/$PROJECT_ID/$REPO_NAME', 
     '--region', 'us-central1', 
     '--platform', 'managed',
-    '--set-env-vars', '"DISCOGS_USERNAME=$$_DISCOGS_USERNAME"',
-    '--set-env-vars', '"USER_EMAIL=$$_USER_EMAIL"',
+    '--set-env-vars', '"DISCOGS_USERNAME=miwwen"',
+    '--set-env-vars', '"USER_EMAIL=mirren@live.com.au"',
     '--set-env-vars', '"DISCOGS_TOKEN=$$DISCOGS_TOKEN"',
-    '--set-env-vars', '"SMTP_ADDRESS=$$_SMTP_ADDRESS"',
+    '--set-env-vars', '"SMTP_ADDRESS=smtp.gmail.com"',
     '--set-env-vars', '"SMTP_USERNAME=$$SMTP_USERNAME"',
     '--set-env-vars', '"SMTP_PASSWORD=$$SMTP_PASSWORD"',
     '--set-env-vars', '"VERBOSE=true"'
@@ -25,11 +25,12 @@ steps:
     images:
     - gcr.io/$PROJECT_ID/$REPO_NAME
     secretEnv: ['DISCOGS_TOKEN', 'SMTP_USERNAME', 'SMTP_PASSWORD']
-    availableSecrets:
-      secretManager:
-      - versionName: projects/221674413825/secrets/DISCOGS_TOKEN/versions/1
-        env: 'DISCOGS_TOKEN'
-      - versionName: projects/221674413825/secrets/SMTP_USERNAME/versions/1
-        env: 'SMTP_USERNAME'
-      - versionName: projects/221674413825/secrets/SMTP_PASSWORD/versions/1
-        env: 'SMTP_PASSWORD'
+    
+availableSecrets:
+    secretManager:
+    - versionName: projects/221674413825/secrets/DISCOGS_TOKEN/versions/1
+    env: 'DISCOGS_TOKEN'
+    - versionName: projects/221674413825/secrets/SMTP_USERNAME/versions/1
+    env: 'SMTP_USERNAME'
+    - versionName: projects/221674413825/secrets/SMTP_PASSWORD/versions/1
+    env: 'SMTP_PASSWORD'
