@@ -29,8 +29,8 @@ steps:
 availableSecrets:
     secretManager:
         - versionName: projects/221674413825/secrets/DISCOGS_TOKEN/versions/1
-            env: 'DISCOGS_TOKEN'
+          env: 'DISCOGS_TOKEN'
         - versionName: projects/221674413825/secrets/SMTP_USERNAME/versions/1
-            env: 'SMTP_USERNAME'
+          env: 'SMTP_USERNAME'
         - versionName: projects/221674413825/secrets/SMTP_PASSWORD/versions/1
-            env: 'SMTP_PASSWORD'
+          env: 'SMTP_PASSWORD'
