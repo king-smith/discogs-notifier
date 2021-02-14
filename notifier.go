@@ -18,7 +18,7 @@ var notifyTag = "notify_me"
 
 // Use rate limiter here to avoid triggering discogs limit and take
 // before each Get method. (Should take after successful API call)
-var limiter = rate.New(60, rate.Per(60*time.Second))
+var limiter = rate.New(1)
 
 // AuthenticatedRequest takes a url and makes a request
 // with authorization added to the header
@@ -34,13 +34,24 @@ func AuthenticatedRequest(url string) (*http.Response, error) {
 
 	req.Header.Set("Authorization", "Discogs token="+discogsToken)
 
+	// Take/check limiter before each request
+	limiter.Take()
+
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
-	}
+	} else if resp.StatusCode == http.StatusTooManyRequests {
+		log.Warnf("Too many requests for %s, waiting to retry", url)
 
-	// Take from limiter after successful request
-	limiter.Take()
+		// Sleep to reset otherwise it overloads limit
+		time.Sleep(2 * time.Second)
+
+		// Take another to compensate
+		limiter.Take()
+
+		// Retry request
+		return AuthenticatedRequest(url)
+	}
 
 	return resp, nil
 }
@@ -73,6 +84,7 @@ func GetFilteredUserLists(url string) ([]UserList, error) {
 		// Check if pagination provides a Next url to use
 		nextURL := data.Pagination.Urls.Next
 		if nextURL != "" {
+			fmt.Println(data)
 			url = nextURL
 		} else {
 			// Exit loop if not
