@@ -24,6 +24,11 @@ RUN go build -mod=readonly -v -o notifier main/main.go
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM debian:buster-slim
 
+# Get ca-certificates to allow for external https calls
+RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Copy the binary to the production image from the builder stage.
