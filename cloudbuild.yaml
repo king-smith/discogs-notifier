@@ -20,8 +20,8 @@ steps:
     '--set-env-vars', 'SMTP_ADDRESS=${_SMTP_ADDRESS}',
     '--set-env-vars', 'SMTP_USERNAME=$$SMTP_USERNAME',
     '--set-env-vars', 'SMTP_PASSWORD=$$SMTP_PASSWORD',
-    '--set-env-vars', '"VERBOSE=true"',
-    '--set-env-vars', '"PORT=8080"'
+    '--set-env-vars', 'VERBOSE=true',
+    '--set-env-vars', 'PORT=8080'
     ]
     secretEnv: ['DISCOGS_TOKEN', 'SMTP_USERNAME', 'SMTP_PASSWORD']
 
