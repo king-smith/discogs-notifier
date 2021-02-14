@@ -213,6 +213,8 @@ func RunNotifier() error {
 
 	previousMarketItems := map[int]MarketItem{}
 
+	log.Debugf("Running notifier for '%s'", os.Getenv("DISCOGS_USERNAME"))
+
 	for true {
 		// Get lists from the user we want to be notified by
 		userLists, err := GetFilteredUserLists(userListsURL)
@@ -231,6 +233,8 @@ func RunNotifier() error {
 			}
 
 			for _, item := range items {
+				log.Debugf("Fetching item '%s'", item.Title)
+
 				// Get the marketplace statistics for each item in the list
 				marketItem, err := GetMarketItem(item, "https://api.discogs.com/marketplace/stats/")
 				if err != nil {
