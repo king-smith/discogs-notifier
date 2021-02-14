@@ -18,7 +18,7 @@ steps:
     '--set-env-vars', 'USER_EMAIL=$$_USER_EMAIL',
     '--set-env-vars', 'DISCOGS_TOKEN=$$DISCOGS_TOKEN',
     '--set-env-vars', 'SMTP_ADDRESS=$$_SMTP_ADDRESS',
-    '--set-env-vars', 'SMTP_USERNAME=$$SMTP_USERNAME",
+    '--set-env-vars', 'SMTP_USERNAME=$$SMTP_USERNAME',
     '--set-env-vars', 'SMTP_PASSWORD=$$SMTP_PASSWORD',
     '--set-env-vars', '"VERBOSE=true"',
     '--set-env-vars', '"PORT=8080"'
