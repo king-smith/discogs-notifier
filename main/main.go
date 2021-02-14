@@ -30,13 +30,15 @@ func main() {
 		log.SetLevel(log.DebugLevel)
 	}
 
-	go RunServer()
-
 	log.Info("Starting notifier")
 
-	if err := notifier.RunNotifier(); err != nil {
-		log.Errorf("Notifier failed: %v", err)
-	}
+	go RunNotifier()
+
+	RunServer()
+
+	// if err := notifier.RunNotifier(); err != nil {
+	// 	log.Errorf("Notifier failed: %v", err)
+	// }
 }
 
 func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,4 +50,8 @@ func RunServer() {
 
 	http.HandleFunc("/health", HealthCheckHandler)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+}
+
+func RunNotifier() {
+	log.Fatal(notifier.RunNotifier())
 }
