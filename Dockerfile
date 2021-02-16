@@ -31,6 +31,9 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 
 WORKDIR /app
 
+# Copy HTML templates to image
+COPY --from=builder /app/email_template.html ./email_template.html
+
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/notifier ./notifier
 
